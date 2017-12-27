@@ -1,6 +1,7 @@
 {
   "name": "timeline-image-chart",
   "version": "0.0.0",
+  "private": false,
   "dependencies": {
     "angular": "^1.4.0",
     "bootstrap": "^3.2.0",
