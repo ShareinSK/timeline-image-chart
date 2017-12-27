@@ -1,12 +1,16 @@
 # timeline-image-chart
 
-This project is generated with [yo angular generator](https://github.com/yeoman/generator-angular)
-version 0.16.0.
+A time based/event series interactive visualization using d3.js. Use drag to navigate in time. By deafult the chart 
+takes current date as start date. This chart allows the user to use images in the time series.
 
-## Build & development
+## Usage
 
-Run `grunt` for building and `grunt serve` for preview.
+Include `timelineImageChartApp` in your app.js module.
 
-## Testing
+`angular.module('AngularApp', ['timelineImageChartApp',...])...`
 
-Running `grunt test` will run the unit tests with karma.
+In HTML file add `<timeline-image-chart chart-data="chartData"></timeline-image-chart>` where you wish to implement the chart.
+
+## Development
+
+Run `grunt serve` for preview.
