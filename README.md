@@ -9,8 +9,14 @@ Include `timelineImageChartApp` in your app.js module.
 
 `angular.module('AngularApp', ['timelineImageChartApp',...])...`
 
+Import `timelineimagechart.js` in your index file.
+
 In HTML file add `<timeline-image-chart chart-data="chartData"></timeline-image-chart>` where you wish to implement the chart.
 
 ## Development
 
 Run `grunt serve` for preview.
+
+## License
+
+GNU General Public License v3.0
