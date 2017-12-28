@@ -11,12 +11,16 @@ angular.module('timelineImageChartApps')
   .controller('MainCtrl', function ($scope) {
     $scope.chartData = {
       data: [
-        {x: new Date(), y: 10, url:'https://github.com/favicon.ico'}
+        {date: new Date(), y: 10}
       ],
       options: {
         width: 1000,
         height: 300,
-        offset: 5
+        offset: 2,
+        tickType: 0,
+        tickDuration: 6,
+        xZoom: 1,
+        yZoom: 0
       }
     };
   });
