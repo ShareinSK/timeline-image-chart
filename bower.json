@@ -12,8 +12,7 @@
     "angular-sanitize": "^1.4.0",
     "angular-touch": "^1.4.0",
     "d3": "3.4.13",
-    "d3-tip": "https://github.com/Caged/d3-tip.git#^0.7.1",
-    "angularD3": "^0.1.1"
+    "d3-tip": "https://github.com/Caged/d3-tip.git#^0.7.1"
   },
   "devDependencies": {
     "angular-mocks": "^1.4.0"
