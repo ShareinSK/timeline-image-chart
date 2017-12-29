@@ -11,7 +11,7 @@ angular.module('timelineImageChartApps')
   .controller('MainCtrl', function ($scope) {
     $scope.chartData = {
       data: [
-        {date: new Date(), y: 10}
+        {date: new Date('2017-12-30'), y: 15}
       ],
       options: {
         width: 1000,
@@ -20,7 +20,8 @@ angular.module('timelineImageChartApps')
         tickType: 0,
         tickDuration: 6,
         xZoom: 1,
-        yZoom: 0
+        yZoom: 0,
+        type: 'image'
       }
     };
   });

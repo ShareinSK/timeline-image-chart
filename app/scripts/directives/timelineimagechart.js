@@ -22,11 +22,13 @@ angular.module('timelineImageChartApp',[])
                 tickType = options.tickType===undefined ? d3.time.hour: tickList[options.tickType],
                 tickDuration = options.tickDuration===undefined ? 12 : options.tickDuration,
                 xZoom = options.xZoom===undefined ? 1 : options.xZoom,
-                yZoom = options.yZoom===undefined ? 0 : options.yZoom;
+                yZoom = options.yZoom===undefined ? 0 : options.yZoom,
+                color = options.color===undefined ? '#000' : options.color;
 
             var svg = d3.select(rawSvg)
                         .attr("width", width)
-                        .attr("height", height);
+                        .attr("height", height)
+                        .style("margin", '20px');
 
             var div = d3.select("body").append("div")	
                         .attr("class", "tooltip")				
@@ -42,19 +44,27 @@ angular.module('timelineImageChartApp',[])
             function zoomed(){
                 if(xZoom===1){
                     g.select('.x-axis')
-                    .call(xAxis);
+                        .call(xAxis);
+
                     g.selectAll('image')
                         .attr('x',function(d){
                             return xScale(d.date);
                         });
+
+                    g.selectAll('circle')
+                        .attr("transform", "translate(" + d3.event.translate[0] + ")scale(" + d3.event.scale + ")");
                 }
                 if(yZoom===1){
                     g.select('.y-axis')
-                    .call(yAxis);
+                        .call(yAxis);
+
                     g.selectAll('image')
                         .attr('y',function(d){
                             return yScale(d.y);
                         });
+                    var tx = 0, ty=1;
+                    g.selectAll('circle')
+                        .attr("transform", "translate(0, " + Math.min(height-75, d3.event.translate[1]) + ")scale(" + d3.event.scale + ")");
                 }
             }
 
@@ -67,7 +77,7 @@ angular.module('timelineImageChartApp',[])
                 return '';
             }).tickPadding(10);
 
-            var g = svg.append("g").attr("transform","translate(20,10)");
+            var g = svg.append("g").attr("transform","translate(5,10)");
 
             g.append("rect")
                 .attr("width", width)
@@ -89,7 +99,8 @@ angular.module('timelineImageChartApp',[])
                 .call(yAxis);
             
             // adding image
-            g.selectAll(null)
+            if(options.type==="image") {
+                g.selectAll(null)
                     .data(chartData.data)
                     .enter()
                     .append("image")
@@ -99,14 +110,14 @@ angular.module('timelineImageChartApp',[])
                         'y':function(d){ return yScale(d.y); }
                     })
                     .attr("xlink:href", function(d){
-                        return d.url!=undefined ? d.url : 'https://github.com/favicon.ico';
+                        return d.url!==undefined ? d.url : 'https://github.com/favicon.ico';
                     })
                     .style("cursor", "pointer")
                     .on("mouseover", function(d) {
                         div.transition()		
                             .duration(200)		
                             .style("opacity", 0.9);		
-                        div.html("Date: "+ (d.date).toDateString() +"<br>" + d.label)	
+                        div.html((d.date).toDateString() +"<br>" + (d.label!=undefined ? d.label : " "))	
                             .style("left", (d3.event.pageX) + "px")		
                             .style("top", (d3.event.pageY - 28) + "px");	
                         })					
@@ -115,7 +126,34 @@ angular.module('timelineImageChartApp',[])
                             .duration(500)		
                             .style("opacity", 0);	
                     });
+            }
 
+            if(options.type==="circle") {
+                g.selectAll(null)
+                    .data(chartData.data)
+                    .enter()
+                    .append('circle')
+                    .attr('r', function(d) { return 5; }) 
+                    .attr('cy', function(d) { return yScale(d.y); })
+                    .attr('cx', function(d) { return xScale(d.date); } )
+                    .attr('fill', color) 
+                    .attr('opacity', 1)
+                    .style('stroke', color)
+                    .style("cursor", "pointer")
+                    .on("mouseover", function(d) {
+                        div.transition()		
+                            .duration(200)		
+                            .style("opacity", 0.9);		
+                        div.html((d.date).toDateString() +"<br>" + (d.label!=undefined ? d.label : " "))	
+                            .style("left", (d3.event.pageX) + "px")		
+                            .style("top", (d3.event.pageY - 28) + "px");	
+                        })					
+                    .on("mouseout", function(d) {		
+                        div.transition()		
+                            .duration(500)		
+                            .style("opacity", 0);	
+                    });
+            }
       }
     };
   });
