@@ -5,6 +5,12 @@ takes current date as start date. This chart allows the user to use images in th
 
 ## Usage
 
+You can download this package using `bower`
+
+```
+bower install timeline-image-chart
+```
+
 Include `timelineImageChartApp` in your app.js module.
 
 `angular.module('AngularApp', ['timelineImageChartApp',...])...`
