@@ -4,6 +4,9 @@ A time based/event series interactive visualization using d3.js v3. Use drag to 
 takes current date as start date. This chart allows the user to use images in the time series.
 
 ## Usage
+You can either install using `bower` or clone this repo.
+
+`bower install timeline-image-chart`
 
 Include `timelineImageChartApp` in your app.js module.
 
